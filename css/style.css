@@ -1,5 +1,9 @@
 :root {
     --font-color: #ddd;
+    --main-background:  #41b3a3; 
+    --orange-tinge: #e27d60;
+    --light-blue: #85dcb8;
+    --light-orange: #e8a87c;
 }
 
 h1 {
@@ -13,7 +17,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #41B3A3;
+    background-color: var(--main-background);
 }
 
 .play-btn {
