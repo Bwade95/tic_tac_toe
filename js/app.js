@@ -1,10 +1,21 @@
 // Manipulate DOM
+const DOM = (() => {
+    return { playBtn: document.querySelector('play-btn'),
+        gameContainer: document.querySelector('.game-container') };
+})();
 
 // Create a gameboard for the tic-tac-toe game
-var gameBoard = [];
+var GameBoard = ((container) => {
 
-// Add players 
+})(document.querySelector('game-container'));
+
+// Generate Game Loop
+const Game = (player, selection) => {
+    return {player, selection};
+}
 
 // Keep scores
 
 // Generate win conditions
+
+console.log(DOM.gameContainer);
