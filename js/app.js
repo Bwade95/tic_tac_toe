@@ -7,6 +7,12 @@ const DOM = (() => {
 // Create a gameboard for the tic-tac-toe game
 var GameBoard = ((container) => {
     let gameBoard = new Array(9);
+
+    const clear = () => {
+        for (let i = 0; i < gameBoard.length; i++) {
+            gameBoard[i] = undefined;
+        }
+    }
 })(document.querySelector('game-container'));
 
 // Create player factory function
