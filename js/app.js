@@ -18,20 +18,26 @@ var GameBoard = ((container) => {
 
 // Create player factory function
 const Player = (marker) => {
-    this.marker = marker;
-    const getMarker = () => this.marker;
+    pMarker = marker;
+    const getMarker = () => pMarker;
     const setMarker = (sign, active) => {
-
+        pMarker = marker;
     };
+    return {
+        getMarker,
+        setMarker
+    }
 }
 
 // Generate Game Loop
-const Game = (player, selection) => {
-    return {player, selection};
-}
 
 // Keep scores
 
 // Generate win conditions
+const winCondition = (gameboard) => {
 
-console.log(DOM.gameContainer);
+}
+
+const drawCondition = (gameboard) => {
+    
+}
