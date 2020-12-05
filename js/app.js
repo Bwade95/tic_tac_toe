@@ -8,7 +8,8 @@ const DOM = (() => {
 var GameBoard = ((container) => {
     let gameBoard = new Array(9);
 
-    const clear = () => {
+    // Function to reset game board
+    const reset = () => {
         for (let i = 0; i < gameBoard.length; i++) {
             gameBoard[i] = undefined;
         }
