@@ -1,7 +1,21 @@
 // Manipulate DOM
 const DOM = (() => {
-    return { playBtn: document.querySelector('play-btn'),
-        gameContainer: document.querySelector('.game-container') };
+    return { 
+        playBtn: document.querySelector('play-btn'),
+        
+        gameContainer: document.querySelector('.game-container'),
+    
+        getBoxes: function() {
+            return this.gameContainer.querySelectorAll('.square')
+        },
+        
+        newBox: function(html) {
+            const box = document.createElement('div');
+            box.className = 'box';
+            box.innerHTML = html;
+            return box;
+        }
+    };
 })();
 
 // Create a gameboard for the tic-tac-toe game

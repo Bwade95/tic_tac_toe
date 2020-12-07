@@ -28,7 +28,7 @@ h1 {
     grid-template-columns: auto auto auto;
 }
 
-.square {
+.box {
     display: flex;
     width: 100px;
     height: 100px;
@@ -40,31 +40,31 @@ h1 {
     transition: bacgkround 0.2 ease-in-out;
 }
 
-.square:hover {
+.box:hover {
     cursor:pointer;
     background: #0ff30f;
 }
 
-#square_0,
-#square_1,
-#square_2 {
+#box_0,
+#box_1,
+#box_2 {
   border-top: none;
 }
 
-#square_0,
-#square_3,
-#square_6 {
+#box_0,
+#box_3,
+#box_6 {
   border-left: none;
 }
 
-#square_6,
-#square_7,
-#square_8 {
+#box_6,
+#box_7,
+#box_8 {
   border-bottom: none;
 }
 
-#square_2,
-#square_5,
-#square_8 {
+#box_2,
+#box_5,
+#box_8 {
   border-right: none;
 }
