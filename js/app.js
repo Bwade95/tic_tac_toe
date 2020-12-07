@@ -1,5 +1,5 @@
 // Manipulate DOM
-const DOM = (() => {
+const displayController = (() => {
     return { 
         playBtn: document.querySelector('play-btn'),
         
@@ -33,9 +33,8 @@ const DOM = (() => {
 var GameBoard = ((container) => {
     const gameBoard = new Array(9);
 
-    const init = () => {
-        DOM.
-    }
+    const getBoard = (num) => gameBoard[num];
+
 })(document.querySelector('game-container'));
 
 // Create player factory function
@@ -54,12 +53,3 @@ const Player = (marker) => {
 // Generate Game Loop
 
 // Keep scores
-
-// Generate win conditions
-const winCondition = (gameboard) => {
-
-}
-
-const drawCondition = (gameboard) => {
-    
-}
