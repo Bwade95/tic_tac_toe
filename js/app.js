@@ -6,27 +6,35 @@ const DOM = (() => {
         gameContainer: document.querySelector('.game-container'),
     
         getBoxes: function() {
-            return this.gameContainer.querySelectorAll('.square')
+            return this.gameContainer.querySelectorAll('.box')
         },
         
-        newBox: function(html) {
+        createBox: function(html) {
             const box = document.createElement('div');
             box.className = 'box';
             box.innerHTML = html;
             return box;
+        },
+
+        boxSelection: function(marker) {
+            return `<span>${marker}</span>`
+        },
+
+        render: function(board) {
+            this.clearBoard();
+            board.forEach(box => {
+                this.gameContainer.appendChild(DOM.newSqaure(DOM.boxSelection(box.marker)));
+            });
         }
     };
 })();
 
 // Create a gameboard for the tic-tac-toe game
 var GameBoard = ((container) => {
-    let gameBoard = new Array(9);
+    const gameBoard = new Array(9);
 
-    // Function to reset game board
-    const reset = () => {
-        for (let i = 0; i < gameBoard.length; i++) {
-            gameBoard[i] = undefined;
-        }
+    const init = () => {
+        DOM.
     }
 })(document.querySelector('game-container'));
 
