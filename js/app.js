@@ -35,6 +35,17 @@ var GameBoard = ((container) => {
 
     const getBoard = (num) => gameBoard[num];
 
+    const init = () => {
+        for(let i = 0; i < gameBoard.length; i++) {
+            gameBoard.push(box);
+        }
+        DOM.render(getBoard());
+    }
+
+    return {
+        getBoard,
+        init
+    };
 })(document.querySelector('game-container'));
 
 // Create player factory function
@@ -49,7 +60,3 @@ const Player = (marker) => {
         setMarker
     }
 }
-
-// Generate Game Loop
-
-// Keep scores
