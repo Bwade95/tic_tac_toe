@@ -1,5 +1,5 @@
 // Manipulate DOM
-const displayController = (() => {
+const DOM = (() => {
     return { 
         playBtn: document.querySelector('play-btn'),
         
@@ -60,3 +60,17 @@ const Player = (marker) => {
         setMarker
     }
 }
+
+const displayController = (() => {
+    const init = () => {
+        DOM.playBtn.addEventListener('click', () => {
+            startGame();
+        })
+    }
+
+    const startGame = () => {
+        GameBoard.init();
+    }
+
+    init()
+})()
