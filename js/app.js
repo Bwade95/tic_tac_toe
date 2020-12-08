@@ -1,7 +1,7 @@
 // Manipulate DOM
 const DOM = (() => {
     return { 
-        playBtn: document.querySelector('play-btn'),
+        playBtn: document.querySelector('.play-btn'),
         
         gameContainer: document.querySelector('.game-container'),
     
@@ -21,9 +21,9 @@ const DOM = (() => {
         },
 
         render: function(board) {
-            this.clearBoard();
+            //this.clearBoard();
             board.forEach(box => {
-                this.gameContainer.appendChild(DOM.newSqaure(DOM.boxSelection(box.marker)));
+                this.gameContainer.appendChild(DOM.createBox(DOM.boxSelection(box.marker)));
             });
         }
     };
@@ -31,22 +31,26 @@ const DOM = (() => {
 
 // Create a gameboard for the tic-tac-toe game
 var GameBoard = ((container) => {
-    const gameBoard = new Array(9);
+    const box = {
+        marker: ''
+    };
+
+    const gameBoard = [];
 
     const getBoard = (num) => gameBoard[num];
 
     const init = () => {
-        for(let i = 0; i < gameBoard.length; i++) {
+        for(let i = 0; i < 9; i++) {
             gameBoard.push(box);
         }
-        DOM.render(getBoard());
-    }
+        DOM.render(gameBoard);
+    };
 
     return {
         getBoard,
         init
     };
-})(document.querySelector('game-container'));
+})(document.querySelector('.game-container'));
 
 // Create player factory function
 const Player = (marker) => {
@@ -69,6 +73,7 @@ const displayController = (() => {
     }
 
     const startGame = () => {
+        DOM.playBtn.style.display = "none";
         GameBoard.init();
     }
 
