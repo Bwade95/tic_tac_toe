@@ -9,22 +9,23 @@ const DOM = (() => {
             return this.gameContainer.querySelectorAll('.box')
         },
         
-        createBox: function(html) {
-            console.log(GameBoard.getBoard())
+        createBox: function(marker) {
+            console.log(GameBoard.getBox())
             const box = document.createElement('div');
             box.className = 'box';
-            box.innerHTML = html;
+            
+
+            const span = document.createElement('span');
+            span.innerHTML = marker;
+            box.appendChild(span);
+
             return box;
         },
-
-        boxSelection: function(marker) {
-            return `<span>${marker}</span>`
-        },
-
+        
         render: function(board) {
             //this.clearBoard();
             board.forEach(box => {
-                this.gameContainer.appendChild(DOM.createBox(DOM.boxSelection(box.marker)));
+                this.gameContainer.appendChild(DOM.createBox(box.marker));
             });
         }
     };
