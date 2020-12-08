@@ -10,7 +10,6 @@ const DOM = (() => {
         },
         
         createBox: function(marker) {
-            console.log(GameBoard.getBox())
             const box = document.createElement('div');
             box.className = 'box';
             
@@ -21,7 +20,7 @@ const DOM = (() => {
 
             return box;
         },
-        
+
         render: function(board) {
             //this.clearBoard();
             board.forEach(box => {
