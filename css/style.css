@@ -26,4 +26,44 @@ h1 {
     width: 300px;
     height: 300px;
     grid-template-columns: auto auto auto;
+    justify-items: center;
+    outline: 1px solid #d8a61100;
+}
+
+.box {
+    display: flex;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    
+}
+
+.box:hover {
+    cursor: pointer;
+    background-color: var(--light-blue);
+}
+
+.box:nth-child(1), 
+.box:nth-child(2), 
+.box:nth-child(3){
+    border-top: none;
+}
+
+.box:nth-child(1), 
+.box:nth-child(4), 
+.box:nth-child(7){
+    border-left: none;
+}
+
+.box:nth-child(3), 
+.box:nth-child(6), 
+.box:nth-child(9){
+    border-right: none;
+}
+
+.box:nth-child(7), 
+.box:nth-child(8), 
+.box:nth-child(9){
+    border-bottom: none;
 }

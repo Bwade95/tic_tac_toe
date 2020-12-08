@@ -10,6 +10,7 @@ const DOM = (() => {
         },
         
         createBox: function(html) {
+            console.log(GameBoard.getBoard())
             const box = document.createElement('div');
             box.className = 'box';
             box.innerHTML = html;
@@ -30,20 +31,20 @@ const DOM = (() => {
 })();
 
 // Create a gameboard for the tic-tac-toe game
-var GameBoard = ((container) => {
+const GameBoard = ((container) => {
     const box = {
         marker: ''
     };
 
     const gameBoard = [];
 
-    const getBoard = (num) => gameBoard[num];
+    const getBoard = () => gameBoard;
 
     const init = () => {
         for(let i = 0; i < 9; i++) {
             gameBoard.push(box);
         }
-        DOM.render(gameBoard);
+        DOM.render(getBoard());
     };
 
     return {
