@@ -38,17 +38,17 @@ const GameBoard = ((container) => {
 
     const gameBoard = [];
 
-    const getBoard = () => gameBoard;
+    const getBox = (num) => gameBoard[num];
 
     const init = () => {
         for(let i = 0; i < 9; i++) {
             gameBoard.push(box);
         }
-        DOM.render(getBoard());
+        DOM.render(gameBoard);
     };
 
     return {
-        getBoard,
+        getBox,
         init
     };
 })(document.querySelector('.game-container'));
@@ -59,6 +59,7 @@ const Player = (marker) => {
     const getMarker = () => pMarker;
     const setMarker = (sign, active) => {
         pMarker = marker;
+        const span = document.querySelector(``)
     };
     return {
         getMarker,
