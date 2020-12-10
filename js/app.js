@@ -5,15 +5,12 @@ const DOM = (() => {
         
         gameContainer: document.querySelector('.game-container'),
     
-        getBoxes: function() {
-            return this.gameContainer.querySelectorAll('.box')
-        },
+        allBoxes: document.querySelectorAll('.game-continer .box'),
         
         createBox: function(marker) {
             const box = document.createElement('div');
             box.className = 'box';
             
-
             const span = document.createElement('span');
             span.innerHTML = marker;
             box.appendChild(span);
@@ -31,7 +28,7 @@ const DOM = (() => {
 })();
 
 // Create a gameboard for the tic-tac-toe game
-const GameBoard = ((container) => {
+const gameBoard = ((container) => {
     const box = {
         marker: ''
     };
@@ -44,10 +41,10 @@ const GameBoard = ((container) => {
     *  @param {*} num is the index of the box in the gameBoard array
     *  @param {*} the player that has selected the box
     */
-    const setBox = (num, player) => {
-        const gameBox = document.querySelector(`.box:nth-child(${num}) span`);
-        gameBox.classList.add('player-marker');
-        gameBox.textContent = player.getSign();
+    const setMarker = (num, player) => {
+        const playerMarker = document.querySelector(`.box:nth-child(${num}) span`);  
+        playerMarker.classList.add('player-marker');
+        playerMarker.textContent = player.getSign();
         board = player.getSign();
     }
 
@@ -60,7 +57,8 @@ const GameBoard = ((container) => {
 
     return {
         getBox,
-        init
+        init,
+        setMarker
     };
 })(document.querySelector('.game-container'));
 
@@ -74,9 +72,9 @@ const Player = (marker) => {
     };
     return {
         getMarker,
-        setMarker
-    }
-}
+        setMarker,
+    };
+};
 
 // Code for game logic
 const gameController = (() => {
@@ -86,25 +84,44 @@ const gameController = (() => {
     const getPlayer1 = () => player1;
     const getPlayer2 = () => player2;
 
+    const playerTurn = (num) => {
+        const box = gameBoard.getBox(num);
+        if(box == undefined) {
+            gameBoard.setField(num, player1);
+        }
+        else {
+            return 'Already Filled';
+        }
+    };
+
     return {
         getPlayer1,
-        getPlayer2
-    }
+        getPlayer2,
+        playerTurn
+    };
 })();
 
 
 // Controls what's visible on screen
-const displayController = (() => {
-    const init = () => {
-        DOM.playBtn.addEventListener('click', () => {
-            startGame();
-        })
-    }
+const displayController = (() => { 
+    const htmlBoard = Array.from(document.querySelectorAll('div.box'));  
 
     const startGame = () => {
         DOM.playBtn.style.display = "none";
-        GameBoard.init();
+        gameBoard.init();
+        
+
+
     }
 
-    init()
-})()
+    const init = (() => {
+        DOM.playBtn.addEventListener('click', () => {
+            startGame();  
+        })         
+        
+        for(let i = 0; i < htmlBoard.length; i++) {
+                box = htmlBoard[i];
+                box.addEventListener('click', gameController.playerTurn.bind(box, i));
+        }    
+    })();
+})();
