@@ -84,6 +84,11 @@ const gameController = (() => {
     const getPlayer1 = () => player1;
     const getPlayer2 = () => player2;
 
+    const startGame = () => {
+        DOM.playBtn.style.display = "none";
+        gameBoard.init();
+    }
+
     const playerTurn = (num) => {
         const box = gameBoard.getBox(num);
         if(box == undefined) {
@@ -105,14 +110,6 @@ const gameController = (() => {
 // Controls what's visible on screen
 const displayController = (() => { 
     const htmlBoard = Array.from(document.querySelectorAll('div.box'));  
-
-    const startGame = () => {
-        DOM.playBtn.style.display = "none";
-        gameBoard.init();
-        
-
-
-    }
 
     const init = (() => {
         DOM.playBtn.addEventListener('click', () => {
