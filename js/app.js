@@ -67,6 +67,20 @@ const Player = (marker) => {
     }
 }
 
+// Code for game logic
+const gameController = (() => {
+    const player1 = Player('X');
+    const player2 = Player('O');
+
+    const getPlayer1 = () => player1;
+    const getPlayer2 = () => player2;
+
+    return {
+        getPlayer1,
+        getPlayer2
+    }
+})();
+
 
 // Controls what's visible on screen
 const displayController = (() => {
