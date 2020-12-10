@@ -1,4 +1,4 @@
-// Manipulate DOM
+// Grabbing HTML Elements
 const DOM = (() => {
     return { 
         playBtn: document.querySelector('.play-btn'),
@@ -33,7 +33,7 @@ const DOM = (() => {
 // Create a gameboard for the tic-tac-toe game
 const GameBoard = ((container) => {
     const box = {
-        marker: 'X'
+        marker: ''
     };
 
     const gameBoard = [];
@@ -67,6 +67,8 @@ const Player = (marker) => {
     }
 }
 
+
+// Controls what's visible on screen
 const displayController = (() => {
     const init = () => {
         DOM.playBtn.addEventListener('click', () => {
