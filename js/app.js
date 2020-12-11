@@ -66,13 +66,9 @@ const gameBoard = ((container) => {
 const Player = (marker) => {
     pMarker = marker;
     const getMarker = () => pMarker;
-    const setMarker = (sign, active) => {
-        pMarker = marker;
-        const span = document.querySelector(``)
-    };
+    
     return {
-        getMarker,
-        setMarker,
+        getMarker
     };
 };
 
