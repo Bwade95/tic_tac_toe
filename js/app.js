@@ -5,7 +5,7 @@ const DOM = (() => {
         
         gameContainer: document.querySelector('.game-container'),
     
-        allBoxes: document.querySelectorAll('.game-continer .box'),
+        allBoxes: document.querySelectorAll('.game-container .box'),
         
         createBox: function(marker) {
             const box = document.createElement('div');
@@ -41,7 +41,7 @@ const gameBoard = ((container) => {
     *  @param {*} num is the index of the box in the gameBoard array
     *  @param {*} the player that has selected the box
     */
-    const setMarker = (num, player) => {
+    const addMarker = (num, player) => {
         const playerMarker = document.querySelector(`.box:nth-child(${num}) span`);  
         playerMarker.classList.add('player-marker');
         playerMarker.textContent = player.getSign();
@@ -58,7 +58,7 @@ const gameBoard = ((container) => {
     return {
         getBox,
         init,
-        setMarker
+        addMarker
     };
 })(document.querySelector('.game-container'));
 
@@ -102,23 +102,22 @@ const gameController = (() => {
     return {
         getPlayer1,
         getPlayer2,
-        playerTurn
+        playerTurn,
+        startGame
     };
 })();
 
 
 // Controls what's visible on screen
-const displayController = (() => { 
-    const htmlBoard = Array.from(document.querySelectorAll('div.box'));  
+const displayController = (() => {   
 
     const init = (() => {
         DOM.playBtn.addEventListener('click', () => {
-            startGame();  
+            gameController.startGame();  
         })         
         
-        for(let i = 0; i < htmlBoard.length; i++) {
-                box = htmlBoard[i];
-                box.addEventListener('click', gameController.playerTurn.bind(box, i));
-        }    
-    })();
+          
+    })
+
+    init();
 })();
