@@ -4,16 +4,19 @@ const DOM = (() => {
     
     const gameContainer = document.querySelector('.game-container')
 
-    const getBoxes = function() {
-        return this.gameContainer.querySelectorAll('.box');
-    };
-        
+    const gameBoxes = document.querySelectorAll('.box');
+
+    const boxArray = Array.from(gameBoxes);
+
     return { 
         playBtn,
         gameContainer,
-        getBoxes
+        gameBoxes,
+        boxArray
     };
-});
+})();
+
+console.log(DOM.boxArray);
 
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
