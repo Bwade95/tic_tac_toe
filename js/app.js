@@ -67,7 +67,7 @@ const gameController = (() => {
     const getPlayer2 = () => player2;
 
     const playerStep = (marker) => {
-        DOM.getBoxes().forEach(box => {
+        DOM.boxArray.forEach(box => {
             box.addEventListener('click', e => {
                 if (e.currentTarget.textContent == '') {
                     const index = Array.from(document.querySelectorAll('.box')).indexOf(e.currentTarget);
