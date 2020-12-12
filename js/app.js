@@ -28,7 +28,7 @@ const DOM = (() => {
 })();
 
 // Create a gameboard for the tic-tac-toe game
-const gameBoard = ((container) => {
+const gameBoard = (() => {
     const box = {
         marker: ''
     };
@@ -53,6 +53,7 @@ const gameBoard = ((container) => {
             board.push(box);
         }
         DOM.render(board);
+        console.log(DOM.allBoxes);
     };
 
     return {
