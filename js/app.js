@@ -44,8 +44,8 @@ const gameBoard = ((container) => {
     const addMarker = (num, player) => {
         const playerMarker = document.querySelector(`.box:nth-child(${num}) span`);  
         playerMarker.classList.add('player-marker');
-        playerMarker.textContent = player.getSign();
-        board = player.getSign();
+        playerMarker.textContent = player.getPlayer1();
+        board = player.getPlayer1();
     }
 
     const drawBoard = () => {
@@ -82,13 +82,13 @@ const gameController = (() => {
 
     const startGame = () => {
         DOM.playBtn.style.display = "none";
-        gameBoard.draw();
+        gameBoard.drawBoard();
     }
 
     const playerTurn = (num) => {
         const box = gameBoard.getBox(num);
         if(box == undefined) {
-            gameBoard.setField(num, player1);
+            gameBoard.addMarker(num, player1);
         }
         else {
             return 'Already Filled';
