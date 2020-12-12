@@ -48,7 +48,7 @@ const gameBoard = ((container) => {
         board = player.getSign();
     }
 
-    const draw = () => {
+    const drawBoard = () => {
         for(let i = 0; i < 9; i++) {
             board.push(box);
         }
@@ -57,7 +57,7 @@ const gameBoard = ((container) => {
 
     return {
         getBox,
-        draw,
+        drawBoard,
         addMarker
     };
 })(document.querySelector('.game-container'));
@@ -82,7 +82,7 @@ const gameController = (() => {
 
     const startGame = () => {
         DOM.playBtn.style.display = "none";
-        gameBoard.init();
+        gameBoard.draw();
     }
 
     const playerTurn = (num) => {
