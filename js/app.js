@@ -46,9 +46,7 @@ const gameBoard = (() => {
     };
 
     return {
-        getBox,
-        drawBoard,
-        addMarker
+        drawBoard
     };
 })(document.querySelector('.game-container'));
 
@@ -77,7 +75,6 @@ const gameController = (() => {
     return {
         getPlayer1,
         getPlayer2,
-        playerTurn,
         startGame
     };
 })();
