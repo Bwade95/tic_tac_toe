@@ -4,8 +4,10 @@ const DOM = (() => {
         playBtn: document.querySelector('.play-btn'),
         
         gameContainer: document.querySelector('.game-container'),
-    
-        allBoxes: document.querySelectorAll('.game-container .box'),
+
+        getBoxes: function() {
+            return this.gameContainer.querySelectorAll('.box');
+        },
         
         createBox: function(marker) {
             const box = document.createElement('div');
@@ -14,6 +16,7 @@ const DOM = (() => {
             const span = document.createElement('span');
             span.innerHTML = marker;
             box.appendChild(span);
+
 
             return box;
         },
@@ -44,8 +47,9 @@ const gameBoard = (() => {
     const addMarker = (num, player) => {
         const playerMarker = document.querySelector(`.box:nth-child(${num}) span`);  
         playerMarker.classList.add('player-marker');
-        playerMarker.textContent = player.getPlayer1();
-        board = player.getPlayer1();
+        playerMarker.textContent = player.getMarker();
+        board = player.getMarker();
+        DOM.render(board);
     }
 
     const drawBoard = () => {
@@ -53,7 +57,6 @@ const gameBoard = (() => {
             board.push(box);
         }
         DOM.render(board);
-        console.log(DOM.allBoxes);
     };
 
     return {
@@ -82,7 +85,6 @@ const gameController = (() => {
     const getPlayer2 = () => player2;
 
     const startGame = () => {
-        DOM.playBtn.style.display = "none";
         gameBoard.drawBoard();
     }
 
@@ -107,13 +109,13 @@ const gameController = (() => {
 
 // Controls what's visible on screen
 const displayController = (() => {   
-
+    
     const init = (() => {
         DOM.playBtn.addEventListener('click', () => {
-            gameController.startGame();  
+            DOM.playBtn.style.display = "none";
+            gameController.startGame();
+            console.log();
         })         
-        
-          
     })
 
     init();
