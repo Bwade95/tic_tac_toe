@@ -22,9 +22,15 @@ const DOM = (() => {
             return box;
         },
 
+        refreshBoard: function() {
+            DOM.getBoxes().forEach(box => {
+                box.gameContainer.removeChild(box);
+            })
+        },
+
         // Draws each box passed into the function
         render: function(board) {
-            //this.clearBoard();
+            this.refreshBoard();
             board.forEach(box => {
                 this.gameContainer.appendChild(DOM.createBox(box.marker));
             });
@@ -35,7 +41,7 @@ const DOM = (() => {
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
     const box = {
-        marker: 'X'
+        marker: ''
     };
 
     // array for storing box elements
@@ -82,26 +88,41 @@ const gameController = (() => {
     const getPlayer1 = () => player1;
     const getPlayer2 = () => player2;
 
+    const playerStep = (marker) => {
+        DOM.getBoxes().forEach(box => {
+            box.addEventListener('click', e => {
+                if (e.currentTarget.textContent == '') {
+                    const index = Array.from(document.querySelectorAll('.box')).indexOf(e.currentTarget);
+                    console.log(index);
+                    gameBoard.setMarker(player1, index);
+                    return;
+                }   
+            })
+        })
+    }
+
     const startGame = () => {
         gameBoard.drawBoard();
+        playerStep();
     }
 
     return {
         getPlayer1,
         getPlayer2,
-        startGame
+        startGame,
+        playerStep
     };
 })();
 
 
 // Controls what's visible on screen
 const displayController = (() => {   
-    
+    DOM.playBtn.addEventListener('click', () => {
+        DOM.playBtn.style.display = "none";
+        init();   
+    }); 
+
     const init = (() => {
-        DOM.playBtn.addEventListener('click', () => {
-            DOM.playBtn.style.display = "none";
-            gameController.startGame();
-        })         
+        gameController.startGame();
     })
-    init();
 })();
