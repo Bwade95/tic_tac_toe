@@ -48,7 +48,7 @@ const gameBoard = ((container) => {
         board = player.getSign();
     }
 
-    const init = () => {
+    const draw = () => {
         for(let i = 0; i < 9; i++) {
             board.push(box);
         }
@@ -57,7 +57,7 @@ const gameBoard = ((container) => {
 
     return {
         getBox,
-        init,
+        draw,
         addMarker
     };
 })(document.querySelector('.game-container'));
