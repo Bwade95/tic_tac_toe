@@ -13,7 +13,7 @@ const DOM = (() => {
         gameContainer,
         getBoxes
     };
-})();
+});
 
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
