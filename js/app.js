@@ -38,20 +38,6 @@ const gameBoard = (() => {
 
     const board = [];
 
-    const getBox = (num) => board[num];
-    /*
-    *  Function to change value of box to given marker
-    *  @param {*} num is the index of the box in the gameBoard array
-    *  @param {*} the player that has selected the box
-    */
-    const addMarker = (num, player) => {
-        const playerMarker = document.querySelector(`.box:nth-child(${num}) span`);  
-        playerMarker.classList.add('player-marker');
-        playerMarker.textContent = player.getMarker();
-        board = player.getMarker();
-        DOM.render(board);
-    }
-
     const drawBoard = () => {
         for(let i = 0; i < 9; i++) {
             board.push(box);
@@ -88,16 +74,6 @@ const gameController = (() => {
         gameBoard.drawBoard();
     }
 
-    const playerTurn = (num) => {
-        const box = gameBoard.getBox(num);
-        if(box == undefined) {
-            gameBoard.addMarker(num, player1);
-        }
-        else {
-            return 'Already Filled';
-        }
-    };
-
     return {
         getPlayer1,
         getPlayer2,
@@ -114,9 +90,7 @@ const displayController = (() => {
         DOM.playBtn.addEventListener('click', () => {
             DOM.playBtn.style.display = "none";
             gameController.startGame();
-            console.log();
         })         
     })
-
     init();
 })();
