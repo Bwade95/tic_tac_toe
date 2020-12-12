@@ -9,6 +9,7 @@ const DOM = (() => {
             return this.gameContainer.querySelectorAll('.box');
         },
         
+        // Creates Box html elements
         createBox: function(marker) {
             const box = document.createElement('div');
             box.className = 'box';
@@ -21,6 +22,7 @@ const DOM = (() => {
             return box;
         },
 
+        // Draws each box passed into the function
         render: function(board) {
             //this.clearBoard();
             board.forEach(box => {
@@ -33,11 +35,21 @@ const DOM = (() => {
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
     const box = {
-        marker: ''
+        marker: 'X'
     };
 
+    // array for storing box elements
     const board = [];
 
+    // Gets box object in gameBoard()
+    const getBox = () => box;
+
+    const setMarker = (mark, index) => {
+        board[index] = {mark};
+        DOM.render(board);
+    }
+
+    // draws the individual box and calls the render function to draw it on the webpage
     const drawBoard = () => {
         for(let i = 0; i < 9; i++) {
             board.push(box);
@@ -46,7 +58,9 @@ const gameBoard = (() => {
     };
 
     return {
-        drawBoard
+        drawBoard,
+        getBox,
+        setMarker
     };
 })(document.querySelector('.game-container'));
 
