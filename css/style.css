@@ -76,12 +76,16 @@ h1 {
 }
 
 .box.x::before,
-.box.x::after {
+.box.x::after,
+.box.o::before,
+.box.o::after {
     background-color: black;
 }
 
 .game-board.x .box:not(.x):not(.o):hover::before,
-.game-board.x .box:not(.x):not(.o):hover::after {
+.game-board.x .box:not(.x):not(.o):hover::after,
+.game-board.o .box:not(.x):not(.o):hover::before,
+.game-board.o .box:not(.x):not(.o):hover::after {
     background-color: lightgrey;
 }
 
@@ -106,19 +110,22 @@ h1 {
 }
 
 .box.o::before,
-.box.o::after {
+.box.o::after,
+.game-board.o .box:not(.x):not(.o):hover::before,
+.game-board.o .box:not(.x):not(.o):hover::after {
     content: '';
     position: absolute;
     border-radius: 50%;  
 }
 
-.box.o::before {
+.box.o::before,
+.game-board.o .box:not(.x):not(.o):hover::before {
     width: var(--mark-size);
     height: var(--mark-size);
-    background-color: black;
 }
 
-.box.o::after {
+.box.o::after,
+.game-board.o .box:not(.x):not(.o):hover::after {
     width: calc(var(--mark-size) * .7);
     height: calc(var(--mark-size) * .7);
     background-color: var(--main-background);
