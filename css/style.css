@@ -4,6 +4,8 @@
     --orange-tinge: #e27d60;
     --light-blue: #85dcb8;
     --light-orange: #e8a87c;
+
+    --box-size: 100px;
 }
 
 h1 {
@@ -21,22 +23,22 @@ h1 {
     background-color: var(--main-background);
 }
 
-.game-container {
+.game-container {   
+    width: 100vw;
+    height: 100vh;
     display: grid;
-    width: 300px;
-    height: 300px;
     grid-template-columns: auto auto auto;
     margin: 15vh auto;
-    justify-items: center;
+    justify-content: center;
+    align-content: center;
 }
 
 .box {
     display: flex;
     text-align: center;
-    height: 100%;
-    width: 100%;
+    height: var(--box-size);
+    width: var(--box-size);
     border: 2px solid black;
-    
 }
 
 .box:hover {
