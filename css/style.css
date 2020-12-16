@@ -25,10 +25,9 @@ h1 {
 
 .game-container {   
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
     display: grid;
     grid-template-columns: auto auto auto;
-    margin: 15vh auto;
     justify-content: center;
     align-content: center;
 }
