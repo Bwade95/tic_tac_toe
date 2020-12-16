@@ -4,15 +4,12 @@ const DOM = (() => {
     
     const gameContainer = document.querySelector('#gameBoard')
 
-    const gameBoxes = document.querySelectorAll('.box');
-
-    const boxArray = Array.from(gameBoxes);
+    const boxElements = document.querySelectorAll('[data-box]');
 
     return { 
         playBtn,
         gameContainer,
-        gameBoxes,
-        boxArray
+        boxElements,
     };
 })();
 
@@ -20,24 +17,15 @@ console.log(DOM.boxArray);
 
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
-    const box = {
-        marker: ''
-    };
-
     // array for storing box elements
     const board = [];
 
     // Gets box object in gameBoard()
-    const getBoard = () => board;
-
-    const setMarker = (mark, index) => {
-        board[index] == {mark};
-    }
 
     // draws the individual box and calls the render function to draw it on the webpage
     const drawBoard = () => {
         for(let i = 0; i < 9; i++) {
-            board.push(box);
+            board.push(DOM.boxElements);
         }
     };
 
@@ -67,15 +55,13 @@ const gameController = (() => {
     const getPlayer2 = () => player2;
 
     const playerStep = (marker) => {
-        DOM.boxArray.forEach(box => {
-            box.addEventListener('click', e => {
-                if (e.currentTarget.textContent == '') {
-                    const index = Array.from(document.querySelectorAll('.box')).indexOf(e.currentTarget);
-                    console.log(index.valueOf());
-                    return;
-                }   
-            })
+        DOM.boxElements.forEach(box => {
+            box.addEventListener('click', handleClick, { once: true })
         })
+    }
+
+    function handleClick(e) {
+        console.log('clicked');
     }
 
     const startGame = () => {
