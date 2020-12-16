@@ -34,10 +34,6 @@ h1 {
     grid-template-columns: repeat(3,auto);
 }
 
-.game-board {
-
-}
-
 .box {
     height: var(--box-size);
     width: var(--box-size);
@@ -48,7 +44,8 @@ h1 {
     position: relative;
 }
 
-.box:hover , .box.o:hover:after {
+.box:hover , 
+.box.o:hover:after {
     cursor: pointer;
     background-color: var(--light-blue);
 }
@@ -73,25 +70,38 @@ h1 {
     border-bottom: none;
 }
 
-.box.x:hover,
-.box.o:hover {
+.box.x,
+.box.o {
     cursor: not-allowed;
 }
 
 .box.x::before,
 .box.x::after {
+    background-color: black;
+}
+
+.game-board.x .box:not(.x):not(.o):hover::before,
+.game-board.x .box:not(.x):not(.o):hover::after {
+    background-color: lightgrey;
+}
+
+.box.x::before,
+.box.x::after,
+.game-board.x .box:not(.x):not(.o):hover::before,
+.game-board.x .box:not(.x):not(.o):hover::after {
     content: '';
     position: absolute;
     width: calc(var(--mark-size) * .15);
     height: var(--mark-size);
-    background-color: black;
 }
 
-.box.x::before {
+.box.x::before,
+.game-board.x .box:not(.x):not(.o)::before {
     transform: rotate(45deg);
 }
 
-.box.x::after {
+.box.x::after,
+.game-board.x .box:not(.x):not(.o)::after {
     transform: rotate(-45deg);
 }
 
