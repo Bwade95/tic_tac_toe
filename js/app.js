@@ -2,7 +2,7 @@
 const DOM = (() => {
     const playBtn = document.querySelector('.play-btn');
     
-    const gameContainer = document.querySelector('#gameContainer')
+    const gameContainer = document.querySelector('#gameBoard')
 
     const gameBoxes = document.querySelectorAll('.box');
 
@@ -46,7 +46,7 @@ const gameBoard = (() => {
         getBoard,
         setMarker
     };
-})(document.querySelector('#gameContainer'));
+})(document.querySelector('#gameBoard'));
 
 // Create player factory function
 const Player = (marker) => {

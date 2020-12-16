@@ -24,7 +24,7 @@ h1 {
     background-color: var(--main-background);
 }
 
-.game-container {   
+.game-board {   
     width: 100vw;
     height: 100vh;
     justify-content: center;
@@ -32,6 +32,10 @@ h1 {
     justify-items: center;
     align-items: center;
     grid-template-columns: repeat(3,auto);
+}
+
+.game-board {
+
 }
 
 .box {
@@ -67,6 +71,11 @@ h1 {
 .box:nth-child(8),
 .box:last-child {
     border-bottom: none;
+}
+
+.box.x:hover,
+.box.o:hover {
+    cursor: not-allowed;
 }
 
 .box.x::before,
