@@ -6,6 +6,7 @@
     --light-orange: #e8a87c;
 
     --box-size: 100px;
+    --mark-size: cal(var(--cell-size)* .9);
 }
 
 h1 {
@@ -27,9 +28,11 @@ h1 {
     width: 100vw;
     height: 50vh;
     display: grid;
-    grid-template-columns: auto auto auto;
     justify-content: center;
     align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3,auto);
 }
 
 .box {
@@ -45,27 +48,23 @@ h1 {
     background-color: var(--light-blue);
 }
 
-.box:nth-child(1), 
+.box:first-child, 
 .box:nth-child(2), 
 .box:nth-child(3){
     border-top: none;
 }
 
-.box:nth-child(1), 
-.box:nth-child(4), 
-.box:nth-child(7){
+.box:nth-child(3n + 1) {
     border-left: none;
 }
 
-.box:nth-child(3), 
-.box:nth-child(6), 
-.box:nth-child(9){
+.box:nth-child(3n + 3) {
     border-right: none;
 }
 
-.box:nth-child(7), 
-.box:nth-child(8), 
-.box:nth-child(9){
+.box:nth-child(7),
+.box:nth-child(8),
+.box:last-child {
     border-bottom: none;
 }
 
