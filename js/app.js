@@ -24,17 +24,7 @@ const gameBoard = (() => {
 
     const getBoard = (num) => _board[num];
 
-    const createCell = () => {
-        const cell = document.createElement('div');
-        cell.classList.add = 'cell';
-        return cell;
-    }
-
-    const render = (board) => {
-        board.forEach(cell => {
-            DOM.boardHTML.appendChild(createCell());
-        })
-    }
+    
 })(document.querySelector('#gameBoard'));
 
 // Code for game logic
