@@ -60,7 +60,7 @@ const gameController = (() => {
         })
     }
 
-    // Grabs target and initiates placemark function
+    // handles turn event
     const handleTurn = (e) => {
         takeTurn(e.target);
     }
@@ -92,7 +92,7 @@ const gameController = (() => {
 })();
 
 
-// Controls what's visible on screen
+// Controls what's visibility of DOM elements
 const displayController = (() => {   
     DOM.playBtn.addEventListener('click', () => {
         DOM.playBtn.style.display = 'none';
