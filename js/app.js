@@ -2,31 +2,31 @@
 const DOM = (() => {
     const playBtn = document.querySelector('.play-btn');
     
-    const gameContainer = document.querySelector('#gameBoard')
+    const boardHTML = document.querySelector('#gameBoard')
 
     const cellElements = document.querySelectorAll('.cell');
 
+    const singleCell = document.querySelector('.cell');
+
     return { 
         playBtn,
-        gameContainer,
-        cellElements
+        boardHTML,
+        cellElements,
+        singleCell
     };
 })();
 
-// Create a gameboard for the tic-tac-toe game
+// Create a gameBoard for the tic-tac-toe game
 const gameBoard = (() => {
 
     // array for storing elements of the board
-    const board = new Array(9);
+    const board = [];
 
     // Gets cell at index of game board
-    const getCell = (num) => board[num];
+    const getBoard = () => board;
 
-    // adds marker to element at given index
-    const setCell = (num) => { 
-        const cellElement = document.querySelector(`.cell:nth-child(${num + 1}`);
-        let setX = cellElement.classList.add('x');
-        board[num] = setX;
+    const setBoard = () => {
+        
     }
 
     const getEmptyCells = () => {
@@ -41,42 +41,59 @@ const gameBoard = (() => {
     }
 
     return {
-        getCell,
-        setCell,
+        getBoard,
         getEmptyCells
     };
 })(document.querySelector('#gameBoard'));
-
-// Create players
-function playerFactory(marker) {
-    let pMarker = marker;
-    const getMarker = () => pMarker;
-    return {
-        getMarker
-    }
-}
 
 // Code for game logic
 const gameController = (() => {
     const player1 = 'x';
     const player2 = 'o';
 
+    let player2turn = false;
+
+    // Event listener for each cell for players move
     const playerStep = () => {
         DOM.cellElements.forEach(cell => {
             cell.addEventListener('click', handleClick, { once: true })
         })
     }
 
-    function handleClick(e) {
+    // Grabs target and initiates placemark function
+    const handleClick = (e) => {
         const cell = e.target
         placeMark(cell);
     }
 
-    function placeMark(cell) {
-        cell.classList.add(`${player1}`)
+    // Grabs current players marker, sets it, then changes player turn
+    const placeMark = (cell) => {
+        if(!player2turn) {
+            cell.classList.add(`${player1}`); 
+            setTurn(cell); 
+        } else {
+            cell.classList.add(`${player2}`);
+            setTurn(cell);
+        }
+        
+    }
+
+    const setTurn = (cell) => {
+        if (!player2turn) {
+            cell.classList.add(`${player1}`)
+            player2turn = true;
+            DOM.boardHTML.classList.remove('x')
+            DOM.boardHTML.classList.add('o')
+        } else { 
+            cell.classList.add(`${player2}`)  
+            player2turn = false;
+            DOM.boardHTML.classList.remove('o')
+            DOM.boardHTML.classList.add('x');
+        }
     }
 
     const startGame = () => {
+        DOM.boardHTML.classList.add('x');
         playerStep();
     }
 
@@ -91,7 +108,7 @@ const gameController = (() => {
 const displayController = (() => {   
     DOM.playBtn.addEventListener('click', () => {
         DOM.playBtn.style.display = 'none';
-        DOM.gameContainer.style.display = 'grid';
+        DOM.boardHTML.style.display = 'grid';
         init();   
     }); 
 
