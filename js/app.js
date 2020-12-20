@@ -4,23 +4,38 @@ const DOM = (() => {
     
     const gameContainer = document.querySelector('#gameBoard')
 
-    const cellElements = document.querySelectorAll('[data-cell]');
-
     return { 
         playBtn,
-        gameContainer,
-        cellElements,
+        gameContainer
     };
 })();
 
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
+
     // array for storing elements of the board
     const board = new Array(9);
 
     // Gets cell at index of game board
     const getCell = (num) => board[num];
 
+    // adds marker to element at given index
+    const setCell = (num) => { 
+        const cellElement = document.querySelector(`.cell:nth-child(${num + 1}`);
+        let setX = cellElement.classList.add('x');
+        board[num] = setX;
+    }
+
+    const getEmptyCells = () => {
+        cells = [];
+        for (let i = 0; i < board.length; i++) {
+            const cell = board[i]
+            if (cell == undefined) {
+                cell.push(i);
+            }
+        }
+        return cells;
+    }
 
     return {
     };
@@ -38,8 +53,8 @@ function playerFactory(name, mark) {
 // Code for game logic
 const gameController = (() => {
 
-    const playerStep = (marker) => {
-        DOM.boxElements.forEach(cell => {
+    const playerStep = () => {
+        DOM.cellElements.forEach(cell => {
             cell.addEventListener('click', handleClick, { once: true })
         })
     }
@@ -49,7 +64,6 @@ const gameController = (() => {
     }
 
     const startGame = () => {
-        gameBoard.drawBoard();
         playerStep();
     }
 
