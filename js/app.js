@@ -56,29 +56,17 @@ const gameController = (() => {
     // Event listener for each cell for players move
     const playerStep = () => {
         DOM.cellElements.forEach(cell => {
-            cell.addEventListener('click', handleClick, { once: true })
+            cell.addEventListener('click', handleTurn, { once: true })
         })
     }
 
     // Grabs target and initiates placemark function
-    const handleClick = (e) => {
-        const cell = e.target
-        placeMark(cell);
+    const handleTurn = (e) => {
+        takeTurn(e.target);
     }
 
     // Grabs current players marker, sets it, then changes player turn
-    const placeMark = (cell) => {
-        if(!player2turn) {
-            cell.classList.add(`${player1}`); 
-            setTurn(cell); 
-        } else {
-            cell.classList.add(`${player2}`);
-            setTurn(cell);
-        }
-        
-    }
-
-    const setTurn = (cell) => {
+    const takeTurn = (cell) => {
         if (!player2turn) {
             cell.classList.add(`${player1}`)
             player2turn = true;
