@@ -4,59 +4,43 @@ const DOM = (() => {
     
     const gameContainer = document.querySelector('#gameBoard')
 
-    const boxElements = document.querySelectorAll('[data-box]');
+    const cellElements = document.querySelectorAll('[data-cell]');
 
     return { 
         playBtn,
         gameContainer,
-        boxElements,
+        cellElements,
     };
 })();
 
-console.log(DOM.boxArray);
-
 // Create a gameboard for the tic-tac-toe game
 const gameBoard = (() => {
-    // array for storing box elements
-    const board = [];
+    // array for storing elements of the board
+    const board = new Array(9);
 
-    // Gets box object in gameBoard()
+    // Gets cell at index of game board
+    const getCell = (num) => board[num];
 
-    // draws the individual box and calls the render function to draw it on the webpage
-    const drawBoard = () => {
-        for(let i = 0; i < 9; i++) {
-            board.push(DOM.boxElements);
-        }
-    };
 
     return {
-        drawBoard,
-        getBoard,
-        setMarker
     };
 })(document.querySelector('#gameBoard'));
 
 // Create player factory function
-const Player = (marker) => {
-    pMarker = marker;
-    const getMarker = () => pMarker;
-    
-    return {
-        getMarker
-    };
-};
+function playerFactory(name, mark) {
+    const takeTurn = function (e) {
+        if (e.target.nodeName.toLowerCase() === 'div') {
+
+        }
+    }
+}
 
 // Code for game logic
 const gameController = (() => {
-    const player1 = Player('X');
-    const player2 = Player('O');
-
-    const getPlayer1 = () => player1;
-    const getPlayer2 = () => player2;
 
     const playerStep = (marker) => {
-        DOM.boxElements.forEach(box => {
-            box.addEventListener('click', handleClick, { once: true })
+        DOM.boxElements.forEach(cell => {
+            cell.addEventListener('click', handleClick, { once: true })
         })
     }
 
@@ -70,8 +54,6 @@ const gameController = (() => {
     }
 
     return {
-        getPlayer1,
-        getPlayer2,
         startGame,
         playerStep
     };
