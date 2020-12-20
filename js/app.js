@@ -4,9 +4,12 @@ const DOM = (() => {
     
     const gameContainer = document.querySelector('#gameBoard')
 
+    const cellElements = document.querySelectorAll('.cell');
+
     return { 
         playBtn,
-        gameContainer
+        gameContainer,
+        cellElements
     };
 })();
 
@@ -38,20 +41,25 @@ const gameBoard = (() => {
     }
 
     return {
+        getCell,
+        setCell,
+        getEmptyCells
     };
 })(document.querySelector('#gameBoard'));
 
-// Create player factory function
-function playerFactory(name, mark) {
-    const takeTurn = function (e) {
-        if (e.target.nodeName.toLowerCase() === 'div') {
-
-        }
+// Create players
+function playerFactory(marker) {
+    let pMarker = marker;
+    const getMarker = () => pMarker;
+    return {
+        getMarker
     }
 }
 
 // Code for game logic
 const gameController = (() => {
+    const player1 = 'x';
+    const player2 = 'o';
 
     const playerStep = () => {
         DOM.cellElements.forEach(cell => {
@@ -60,7 +68,12 @@ const gameController = (() => {
     }
 
     function handleClick(e) {
-        console.log('clicked');
+        const cell = e.target
+        placeMark(cell);
+    }
+
+    function placeMark(cell) {
+        cell.classList.add(`${player1}`)
     }
 
     const startGame = () => {
