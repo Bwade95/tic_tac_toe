@@ -20,30 +20,21 @@ const DOM = (() => {
 const gameBoard = (() => {
 
     // array for storing elements of the board
-    const board = [];
+    const _board = new Array(9);
 
-    // Gets cell at index of game board
-    const getBoard = () => board;
+    const getBoard = (num) => _board[num];
 
-    const setBoard = () => {
-        
+    const createCell = () => {
+        const cell = document.createElement('div');
+        cell.classList.add = 'cell';
+        return cell;
     }
 
-    const getEmptyCells = () => {
-        cells = [];
-        for (let i = 0; i < board.length; i++) {
-            const cell = board[i]
-            if (cell == undefined) {
-                cell.push(i);
-            }
-        }
-        return cells;
+    const render = (board) => {
+        board.forEach(cell => {
+            DOM.boardHTML.appendChild(createCell());
+        })
     }
-
-    return {
-        getBoard,
-        getEmptyCells
-    };
 })(document.querySelector('#gameBoard'));
 
 // Code for game logic
@@ -81,6 +72,7 @@ const gameController = (() => {
     }
 
     const startGame = () => {
+        gameBoard.init();
         DOM.boardHTML.classList.add('x');
         playerStep();
     }
