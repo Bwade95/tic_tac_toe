@@ -4,15 +4,9 @@ const DOM = (() => {
     
     const boardHTML = document.querySelector('#gameBoard')
 
-    const cellElements = document.querySelectorAll('.cell');
-
-    const singleCell = document.querySelector('.cell');
-
     return { 
         playBtn,
-        boardHTML,
-        cellElements,
-        singleCell
+        boardHTML
     };
 })();
 
@@ -20,12 +14,28 @@ const DOM = (() => {
 const gameBoard = (() => {
 
     // array for storing elements of the board
-    const _board = new Array(9);
-
-    const getBoard = (num) => _board[num];
-
+    const _board = [];
+    for(i = 0; i < 9; i++) {
+        _board.push('');
+    }
     
-})(document.querySelector('#gameBoard'));
+    _board.forEach(() => {
+        this.cell = document.createElement('div');
+        cell.className = 'cell';
+        DOM.boardHTML.appendChild(cell);
+    })
+
+    const cellElements = document.querySelectorAll('.cell');
+
+    const singleCell = document.querySelector('.cell');
+
+    return {
+        cellElements,
+        singleCell,
+        _board
+    }
+    
+})();
 
 // Code for game logic
 const gameController = (() => {
@@ -36,7 +46,7 @@ const gameController = (() => {
 
     // Event listener for each cell for players move
     const playerStep = () => {
-        DOM.cellElements.forEach(cell => {
+        gameBoard.cellElements.forEach(cell => {
             cell.addEventListener('click', handleTurn, { once: true })
         })
     }
@@ -62,7 +72,6 @@ const gameController = (() => {
     }
 
     const startGame = () => {
-        gameBoard.init();
         DOM.boardHTML.classList.add('x');
         playerStep();
     }
