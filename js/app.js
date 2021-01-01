@@ -29,18 +29,24 @@ const gameBoard = (() => {
 
     const singleCell = document.querySelector('.cell');
 
+    const getBoard = () => _board;
+
     return {
         cellElements,
         singleCell,
-        _board
+        getBoard
     }
     
 })();
 
+const createPlayer = (name, marker) => {
+    return {name, marker}
+}
+
 // Code for game logic
 const gameController = (() => {
-    const player1 = 'x';
-    const player2 = 'o';
+    const player1 = createPlayer('Player 1', 'x');
+    const player2 = createPlayer('Player 2', 'o');
 
     let player2turn = false;
 
@@ -59,16 +65,34 @@ const gameController = (() => {
     // Grabs current players marker, sets it, then changes player turn
     const takeTurn = (cell) => {
         if (!player2turn) {
-            cell.classList.add(`${player1}`)
+            cell.classList.add(`${player1.marker}`)
             player2turn = true;
             DOM.boardHTML.classList.remove('x')
             DOM.boardHTML.classList.add('o')
         } else { 
-            cell.classList.add(`${player2}`)  
+            cell.classList.add(`${player2.marker}`)  
             player2turn = false;
             DOM.boardHTML.classList.remove('o')
             DOM.boardHTML.classList.add('x');
         }
+    }
+
+    const checkWin = () => {
+        const board = Gameboard.getBoard();
+        const winConditions = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ];
+
+        winConditions.forEach((item, index) => {
+
+        })
     }
 
     const startGame = () => {
