@@ -48,37 +48,36 @@ const gameController = (() => {
     const player1 = createPlayer('Player 1', 'x');
     const player2 = createPlayer('Player 2', 'o');
 
-    let player2turn = false;
+    const board = gameBoard.getBoard();
+
+    let activePlayer = player1;
 
     // Event listener for each cell for players move
     const playerStep = () => {
-        gameBoard.cellElements.forEach(cell => {
-            cell.addEventListener('click', handleTurn, { once: true })
-        })
-    }
-
-    // handles turn event
-    const handleTurn = (e) => {
-        takeTurn(e.target);
+        Array.from(gameBoard.cellElements).forEach((cell, index) => {
+            cell.addEventListener('click', () => {
+                board[index] = activePlayer.marker;
+                cell.classList.add(activePlayer.marker); 
+                checkWin();
+                takeTurn();
+            }, { once: true })
+        })   
     }
 
     // Grabs current players marker, sets it, then changes player turn
-    const takeTurn = (cell) => {
-        if (!player2turn) {
-            cell.classList.add(`${player1.marker}`)
-            player2turn = true;
+    const takeTurn = () => {
+        if (activePlayer == player1) {           
             DOM.boardHTML.classList.remove('x')
             DOM.boardHTML.classList.add('o')
-        } else { 
-            cell.classList.add(`${player2.marker}`)  
-            player2turn = false;
+            activePlayer = player2;
+        } else {
             DOM.boardHTML.classList.remove('o')
             DOM.boardHTML.classList.add('x');
+            activePlayer = player1;
         }
     }
 
     const checkWin = () => {
-        const board = Gameboard.getBoard();
         const winConditions = [
             [0,1,2],
             [3,4,5],
@@ -90,8 +89,13 @@ const gameController = (() => {
             [2,4,6]
         ];
 
-        winConditions.forEach((item, index) => {
-
+        winConditions.forEach(item => {
+            if (board[item[0]] === activePlayer.marker && 
+                board[item[1]] === activePlayer.marker &&
+                board[item[2]] === activePlayer.marker) 
+                {
+                console.log("winner is", activePlayer.name);
+            }
         })
     }
 
