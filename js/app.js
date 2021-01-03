@@ -61,6 +61,7 @@ const gameController = (() => {
                 board[index] = activePlayer.marker;
                 console.log(activePlayer);
                 cell.classList.add(activePlayer.marker);
+                checkForWin();
                 switchPlayer();
             }, { once: true })
         })
@@ -95,6 +96,16 @@ const gameController = (() => {
 			[2, 4, 6]
         ];
         
+        winConditions.some((element) => {
+            if( board[element[0]] == activePlayer.marker &&
+                board[element[1]] == activePlayer.marker &&
+                board[element[2]] == activePlayer.marker) {
+                    console.log("Win");
+                    return true;
+                } else {
+                    return false;
+                }
+            })
     }
 
 
