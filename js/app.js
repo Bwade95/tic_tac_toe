@@ -50,18 +50,24 @@ const gameController = (() => {
 
     const board = gameBoard.getBoard();
 
+    let test = true;
+
     let activePlayer = player1;
 
     // Event listener for each cell for players move
     const playerStep = () => {
-        Array.from(gameBoard.cellElements).forEach((cell, index) => {
+        gameBoard.cellElements.forEach((cell, index) => {
             cell.addEventListener('click', () => {
                 board[index] = activePlayer.marker;
-                console.log(board)
+                console.log(activePlayer);
                 cell.classList.add(activePlayer.marker);
                 switchPlayer();
             }, { once: true })
         })
+    }
+
+    const takeTurn = () => {
+        playerStep();
     }
 
     // Changes player turn and hover marker
@@ -96,7 +102,7 @@ const gameController = (() => {
         // adds marker hover for first player
         DOM.boardHTML.classList.add('x');
         
-        playerStep();
+        takeTurn();
     }
 
     return {
