@@ -57,15 +57,15 @@ const gameController = (() => {
         Array.from(gameBoard.cellElements).forEach((cell, index) => {
             cell.addEventListener('click', () => {
                 board[index] = activePlayer.marker;
-                cell.classList.add(activePlayer.marker); 
-                checkWin();
-                takeTurn();
+                console.log(board)
+                cell.classList.add(activePlayer.marker);
+                switchPlayer();
             }, { once: true })
-        })   
+        })
     }
 
-    // Grabs current players marker, sets it, then changes player turn
-    const takeTurn = () => {
+    // Changes player turn and hover marker
+    const switchPlayer = () => {
         if (activePlayer == player1) {           
             DOM.boardHTML.classList.remove('x')
             DOM.boardHTML.classList.add('o')
@@ -77,30 +77,25 @@ const gameController = (() => {
         }
     }
 
-    const checkWin = () => {
+    const checkForWin = () => {
         const winConditions = [
-            [0,1,2],
-            [3,4,5],
-            [6,7,8],
-            [0,3,6],
-            [1,4,7],
-            [2,5,8],
-            [0,4,8],
-            [2,4,6]
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6]
         ];
-
-        winConditions.forEach(item => {
-            if (board[item[0]] === activePlayer.marker && 
-                board[item[1]] === activePlayer.marker &&
-                board[item[2]] === activePlayer.marker) 
-                {
-                console.log("winner is", activePlayer.name);
-            }
-        })
+        
     }
 
+
     const startGame = () => {
+        // adds marker hover for first player
         DOM.boardHTML.classList.add('x');
+        
         playerStep();
     }
 
