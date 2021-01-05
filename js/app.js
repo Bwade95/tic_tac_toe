@@ -5,30 +5,29 @@ const DOM = (() => {
 
         boardHTML: document.querySelector('#gameBoard'),
         
-        getCells = () => {
+        getCells: function() {
             return this.boardHTML.querySelectorAll('.cell');
         },
 
-        newCell = (mark) => {
+        newCell: function(mark) {
             const cell = document.createElement('div');
             cell.className = 'cell';
             cell.classList.add(mark);
             return cell;
         },
 
-        clearBoard = () => {
-                DOM.getCells().forEach((cell) => {
-                    this.boardHTML.removeChild(cell);
-                })
+        clearBoard: function() {
+            DOM.getCells().forEach((cell) => {
+                this.boardHTML.removeChild(cell);
+            });
         },
 
-        renderBoard = (board) => {
-                this.clearBoard();
-                board.forEach((cell) => {
-                    this.boardHTML.appendChild(DOM.newCell(cell));
-                })
-        },
-
+        renderBoard: function(board) {
+            this.clearBoard();
+            board.forEach((cell) => {
+                this.boardHTML.appendChild(DOM.newCell(cell));
+            })
+        }
     };
 })();
 
@@ -37,35 +36,24 @@ const gameBoard = (() => {
 
     // array for storing elements of the board
     const _board = [];
-  
-    const test = (cell) => {
-        _board.forEach(() => {
-            cell = document.createElement('div');
-            cell.className = 'cell';
-            DOM.boardHTML.appendChild(cell);
-        })
-    }
     
-    const clear = () => {
-
-    }
+    // For retrieving _board in other functions
+    const getBoard = () => _board;
     
+    // 
     const init = () => {
         for (i = 0; i < 9; i++) {
-            _board.push('');
+            _board.push('o');
         }
-        test(_board);
+        DOM.renderBoard(_board);
     }
-
-    const getBoard = () => _board;
 
     const setBoard = (mark, index) => {
         board[index] = mark;
-        DOM.test(_board);
+        DOM.renderBoard(_board);
     } 
 
     return {
-        test,
         init,
         getBoard,
         setBoard
