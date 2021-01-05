@@ -1,12 +1,34 @@
 // Grabbing HTML Elements
 const DOM = (() => {
-    const playBtn = document.querySelector('.play-btn');
-    
-    const boardHTML = document.querySelector('#gameBoard')
-
     return { 
-        playBtn,
-        boardHTML
+        playBtn: document.querySelector('.play-btn'),
+
+        boardHTML: document.querySelector('#gameBoard'),
+        
+        getCells = () => {
+            return this.boardHTML.querySelectorAll('.cell');
+        },
+
+        newCell = (mark) => {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.classList.add(mark);
+            return cell;
+        },
+
+        clearBoard = () => {
+                DOM.getCells().forEach((cell) => {
+                    this.boardHTML.removeChild(cell);
+                })
+        },
+
+        renderBoard = (board) => {
+                this.clearBoard();
+                board.forEach((cell) => {
+                    this.boardHTML.appendChild(DOM.newCell(cell));
+                })
+        },
+
     };
 })();
 
@@ -15,26 +37,38 @@ const gameBoard = (() => {
 
     // array for storing elements of the board
     const _board = [];
-    for(i = 0; i < 9; i++) {
-        _board.push('');
+  
+    const test = (cell) => {
+        _board.forEach(() => {
+            cell = document.createElement('div');
+            cell.className = 'cell';
+            DOM.boardHTML.appendChild(cell);
+        })
     }
     
-    _board.forEach(() => {
-        this.cell = document.createElement('div');
-        cell.className = 'cell';
-        DOM.boardHTML.appendChild(cell);
-    })
+    const clear = () => {
 
-    const cellElements = document.querySelectorAll('.cell');
-
-    const singleCell = document.querySelector('.cell');
+    }
+    
+    const init = () => {
+        for (i = 0; i < 9; i++) {
+            _board.push('');
+        }
+        test(_board);
+    }
 
     const getBoard = () => _board;
 
+    const setBoard = (mark, index) => {
+        board[index] = mark;
+        DOM.test(_board);
+    } 
+
     return {
-        cellElements,
-        singleCell,
-        getBoard
+        test,
+        init,
+        getBoard,
+        setBoard
     }
     
 })();
@@ -50,37 +84,49 @@ const gameController = (() => {
 
     const board = gameBoard.getBoard();
 
-    let test = true;
+    //let test = true;
 
     let activePlayer = player1;
 
     // Event listener for each cell for players move
-    const playerStep = () => {
-        gameBoard.cellElements.forEach((cell, index) => {
+    const init = () => {
+        const cellElements = document.querySelectorAll('.cell');
+        cellElements.forEach((cell) => {
             cell.addEventListener('click', () => {
-                board[index] = activePlayer.marker;
-                console.log(activePlayer);
-                cell.classList.add(activePlayer.marker);
-                checkForWin();
-                switchPlayer();
+
             }, { once: true })
         })
+        handleHover();
     }
 
-    const takeTurn = () => {
-        playerStep();
+    const handleTurn = (e) => {
+        const cell = e.target;
+        //placeMarker(cell);
+        gameBoard.setBoard(activePlayer.marker, cell);
+        switchPlayer();
+        handleHover();
+    }
+
+    /*const placeMarker = (cell) => {
+        cell.classList.add(activePlayer.marker);
+    }*/
+
+    const switchPlayer = () => {
+        if(activePlayer == player1) {
+            activePlayer = player2;
+        } else {
+            activePlayer = player1;
+        }
     }
 
     // Changes player turn and hover marker
-    const switchPlayer = () => {
+    const handleHover = () => {
+        DOM.boardHTML.classList.remove('x')
+        DOM.boardHTML.classList.remove('o')
         if (activePlayer == player1) {           
-            DOM.boardHTML.classList.remove('x')
-            DOM.boardHTML.classList.add('o')
-            activePlayer = player2;
+            DOM.boardHTML.classList.add('x')
         } else {
-            DOM.boardHTML.classList.remove('o')
-            DOM.boardHTML.classList.add('x');
-            activePlayer = player1;
+            DOM.boardHTML.classList.add('o');
         }
     }
 
@@ -96,29 +142,23 @@ const gameController = (() => {
 			[2, 4, 6]
         ];
         
-        winConditions.some((element) => {
-            if( board[element[0]] == activePlayer.marker &&
-                board[element[1]] == activePlayer.marker &&
-                board[element[2]] == activePlayer.marker) {
-                    console.log("Win");
-                    return true;
-                } else {
-                    return false;
-                }
+        winConditions.some((combination) => {
+            return combination.every(index => {
+                return cellElements[index].classList.contains(activePlayer.marker);
             })
+        })
     }
 
 
     const startGame = () => {
         // adds marker hover for first player
         DOM.boardHTML.classList.add('x');
-        
-        takeTurn();
+        gameBoard.init();
+        init();
     }
 
     return {
-        startGame,
-        playerStep
+        startGame
     };
 })();
 
