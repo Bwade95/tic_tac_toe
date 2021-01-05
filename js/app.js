@@ -12,7 +12,9 @@ const DOM = (() => {
         newCell: function(mark) {
             const cell = document.createElement('div');
             cell.className = 'cell';
-            cell.classList.add(mark);
+            if(mark !== '') {
+                cell.classList.add(mark);
+            }
             return cell;
         },
 
@@ -43,20 +45,27 @@ const gameBoard = (() => {
     // 
     const init = () => {
         for (i = 0; i < 9; i++) {
-            _board.push('o');
+            _board.push('');
         }
         DOM.renderBoard(_board);
     }
 
-    const setBoard = (mark, index) => {
-        board[index] = mark;
+    const addMarkerClass = (marker) => {
+        _marker = document.querySelector('.cell');
+        _marker.classList.add(marker);
+        return _marker;
+    }
+
+    const setMarker = (marker, index) => {
+        _board[index] = marker;
+        addMarkerClass(marker);
         DOM.renderBoard(_board);
-    } 
+    }
 
     return {
         init,
         getBoard,
-        setBoard
+        setMarker
     }
     
 })();
@@ -76,28 +85,33 @@ const gameController = (() => {
 
     let activePlayer = player1;
 
-    // Event listener for each cell for players move
     const init = () => {
+        DOM.boardHTML.classList.add('x');
+        gameBoard.init();
+        startGame();
+    }
+
+    // Handles gameplay events
+    const startGame = () => {
         const cellElements = document.querySelectorAll('.cell');
         cellElements.forEach((cell) => {
-            cell.addEventListener('click', () => {
-
-            }, { once: true })
+            cell.addEventListener('click', handleTurn, { once: true })
         })
         handleHover();
     }
+    
 
     const handleTurn = (e) => {
-        const cell = e.target;
-        //placeMarker(cell);
-        gameBoard.setBoard(activePlayer.marker, cell);
-        switchPlayer();
-        handleHover();
+        if(!e.currentTarget.className.includes('x') && !e.currentTarget.className.includes('o')) {
+           const cell = Array.from(e.currentTarget.parentNode.children).indexOf(
+                e.currentTarget
+            );
+            gameBoard.setMarker(activePlayer.marker, cell);
+            switchPlayer();
+            handleHover();
+            startGame(); 
+        }
     }
-
-    /*const placeMarker = (cell) => {
-        cell.classList.add(activePlayer.marker);
-    }*/
 
     const switchPlayer = () => {
         if(activePlayer == player1) {
@@ -132,34 +146,27 @@ const gameController = (() => {
         
         winConditions.some((combination) => {
             return combination.every(index => {
-                return cellElements[index].classList.contains(activePlayer.marker);
+                return DOM.getCells()[index].classList.contains(activePlayer.marker);
             })
         })
     }
 
 
-    const startGame = () => {
-        // adds marker hover for first player
-        DOM.boardHTML.classList.add('x');
-        gameBoard.init();
-        init();
-    }
+    
 
     return {
-        startGame
+        init
     };
 })();
 
 
-// Controls what's visibility of DOM elements
+// Controls visibility of DOM elements
 const displayController = (() => {   
-    DOM.playBtn.addEventListener('click', () => {
+    const init = () => {
         DOM.playBtn.style.display = 'none';
         DOM.boardHTML.style.display = 'grid';
-        init();   
-    }); 
+        gameController.init(); 
+    }
 
-    const init = (() => {
-        gameController.startGame();
-    })
+    DOM.playBtn.addEventListener('click', init); 
 })();
