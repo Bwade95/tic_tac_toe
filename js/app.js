@@ -108,7 +108,6 @@ const gameController = (() => {
                 endGame(false);
             } else if (isDraw()){
                 endGame(true);
-                
             } else {
                 switchPlayer();
                 handleHover();
