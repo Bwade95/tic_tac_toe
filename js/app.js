@@ -1,3 +1,11 @@
+/*
+*   TODO:: 
+*       - Add scenes for setup, game and after game
+*       - Add Styling for Win Condition
+*       - Add input for player names
+*       - (Optional) Begin implementation of Computer Opponent
+*/
+
 // Grabbing HTML Elements
 const DOM = (() => {
     return { 
