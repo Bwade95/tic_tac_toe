@@ -9,6 +9,9 @@
 // Grabbing HTML Elements
 const DOM = (() => {
     return { 
+
+        setupWindow: document.querySelector('#setup-window'),
+
         playBtn: document.querySelector('.play-btn'),
 
         boardHTML: document.querySelector('#gameBoard'),
@@ -185,7 +188,7 @@ const gameController = (() => {
 // Controls visibility of DOM elements
 const displayController = (() => {   
     const init = () => {
-        DOM.playBtn.style.display = 'none';
+        DOM.setupWindow.style.display = 'none';
         DOM.boardHTML.style.display = 'grid';
         gameController.init(); 
     }
