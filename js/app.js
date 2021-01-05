@@ -81,8 +81,6 @@ const gameController = (() => {
 
     const board = gameBoard.getBoard();
 
-    //let test = true;
-
     let activePlayer = player1;
 
     const init = () => {
@@ -100,10 +98,10 @@ const gameController = (() => {
         handleHover();
     }
     
-
+    // checks if selected cell is empty, plays current players turn then switches turn
     const handleTurn = (e) => {
         if(!e.currentTarget.className.includes('x') && !e.currentTarget.className.includes('o')) {
-           const cell = Array.from(e.currentTarget.parentNode.children).indexOf(
+           const cell = [...e.currentTarget.parentNode.children].indexOf(
                 e.currentTarget
             );
             gameBoard.setMarker(activePlayer.marker, cell);
@@ -146,13 +144,10 @@ const gameController = (() => {
         
         winConditions.some((combination) => {
             return combination.every(index => {
-                return DOM.getCells()[index].classList.contains(activePlayer.marker);
+                return board[index] == (activePlayer.marker);
             })
         })
     }
-
-
-    
 
     return {
         init
