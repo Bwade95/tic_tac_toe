@@ -84,7 +84,6 @@ const gameController = (() => {
     let activePlayer = player1;
 
     const init = () => {
-        DOM.boardHTML.classList.add('x');
         gameBoard.init();
         startGame();
     }
@@ -105,9 +104,16 @@ const gameController = (() => {
                 e.currentTarget
             );
             gameBoard.setMarker(activePlayer.marker, cell);
-            switchPlayer();
-            handleHover();
-            startGame(); 
+            if (checkForWin(activePlayer.marker)) {
+                endGame(false);
+            } else if (isDraw()){
+                endGame(true);
+                
+            } else {
+                switchPlayer();
+                handleHover();
+                startGame();
+            }
         }
     }
 
@@ -130,7 +136,21 @@ const gameController = (() => {
         }
     }
 
-    const checkForWin = () => {
+    const endGame = (draw) => {
+        if (draw) {
+            console.log("Draw!");
+        } else {
+            console.log("Win!");
+        }
+    }
+
+    const isDraw = () => {
+        return board.every(cell => {
+            return cell !== '' || cell !== '';
+        })
+    }
+
+    const checkForWin = (activePlayer) => {
         const winConditions = [
 			[0, 1, 2],
 			[3, 4, 5],
@@ -142,9 +162,9 @@ const gameController = (() => {
 			[2, 4, 6]
         ];
         
-        winConditions.some((combination) => {
+        return winConditions.some((combination) => {
             return combination.every(index => {
-                return board[index] == (activePlayer.marker);
+                return board[index] == (activePlayer);
             })
         })
     }
