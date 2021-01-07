@@ -152,7 +152,7 @@ const gameController = (() => {
         if (draw) {
             console.log("Draw!");
         } else {
-            console.log("Win!");
+            displayController.winDisplay(activePlayer.marker);
         }
     }
 
@@ -195,8 +195,8 @@ const displayController = (() => {
         e.preventDefault();
         DOM.setupWindow.style.display = 'none';
         DOM.boardHTML.style.display = 'grid';
-        gameController.init();  
-        DOM.container.appendChild(playerDisplay());    
+        gameController.init();
+        DOM.container.appendChild(playerDisplay().players);    
     }
 
     const playerDisplay = () => {
@@ -214,7 +214,7 @@ const displayController = (() => {
         player1Name.setAttribute('id', 'left-name');
         player1Name.classList.add('left-name');
         player1Name.innerHTML = `${player1}`;
-
+        
         const player2 = document.getElementById('player-2').value;
 
         const player2Title = document.createElement('h3');
@@ -232,8 +232,19 @@ const displayController = (() => {
         players.appendChild(player2Title);
         players.appendChild(player2Name);
 
-        return players;
+        return { players, player1, player2 };
+    }
+
+    const winDisplay = (name) => {
+        this.name = name;
+        if (this.name == 'x') {
+            console.log(`${playerDisplay().player1} Wins!`);
+        } else {
+            console.log(`${playerDisplay().player2} Wins!`);
+        }
     }
 
     DOM.playBtn.addEventListener('click', init); 
+
+    return { winDisplay };
 })();
