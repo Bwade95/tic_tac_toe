@@ -6,7 +6,7 @@
 *       - (Optional) Begin implementation of Computer Opponent
 */
 
-// Grabbing HTML Elements
+// Mainly GrabsHTML Elements
 const DOM = (() => {
     return { 
 
@@ -105,7 +105,7 @@ const gameController = (() => {
     const startGame = () => {
         const cellElements = document.querySelectorAll('.cell');
         cellElements.forEach((cell) => {
-            cell.addEventListener('click', handleTurn, { once: true })
+            cell.addEventListener('click', handleTurn)
         })
         handleHover();
     }
@@ -149,6 +149,7 @@ const gameController = (() => {
     }
 
     const endGame = (draw) => {
+        DOM.boardHTML.classList.remove(activePlayer.marker);
         if (draw) {
             console.log("Draw!");
         } else {
