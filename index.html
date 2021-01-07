@@ -12,7 +12,17 @@
     <div class="container">
         <h1>Tic-Tac-Toe</h1>
         <div id="setup-window">
-            <button class="play-btn">PLAY</button>
+            <div class="player-submit">
+                <form data-children-count="2">
+                    <label for="player-name">Player 1</label>
+                    <input type="text" id="player-1" placeholder="Enter Name">
+                    <label for="player-name">Player 2</label>
+                    <input type="text" id="player-2" placeholder="Enter Name">
+                    <br>
+                    <button class="play-btn">PLAY</button>
+                </form>
+            </div>
+            
         </div>
         <div class="game-board" id="gameBoard" style="display: none">
         </div>

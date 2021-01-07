@@ -10,6 +10,8 @@
 const DOM = (() => {
     return { 
 
+        container: document.querySelector('.container'),
+
         setupWindow: document.querySelector('#setup-window'),
 
         playBtn: document.querySelector('.play-btn'),
@@ -48,17 +50,17 @@ const DOM = (() => {
 const gameBoard = (() => {
 
     // array for storing elements of the board
-    const _board = [];
+    const board = [];
     
     // For retrieving _board in other functions
-    const getBoard = () => _board;
+    const getBoard = () => board;
     
     // 
     const init = () => {
         for (i = 0; i < 9; i++) {
-            _board.push('');
+            board.push('');
         }
-        DOM.renderBoard(_board);
+        DOM.renderBoard(board);
     }
 
     const addMarkerClass = (marker) => {
@@ -68,9 +70,9 @@ const gameBoard = (() => {
     }
 
     const setMarker = (marker, index) => {
-        _board[index] = marker;
+        board[index] = marker;
         addMarkerClass(marker);
-        DOM.renderBoard(_board);
+        DOM.renderBoard(board);
     }
 
     return {
@@ -81,14 +83,14 @@ const gameBoard = (() => {
     
 })();
 
-const createPlayer = (name, marker) => {
-    return {name, marker}
-}
+const createPlayer = (marker) => {
+    return {marker}
+}   
 
 // Code for game logic
 const gameController = (() => {
-    const player1 = createPlayer('Player 1', 'x');
-    const player2 = createPlayer('Player 2', 'o');
+    const player1 = createPlayer('x');
+    const player2 = createPlayer('o');
 
     const board = gameBoard.getBoard();
 
@@ -180,17 +182,57 @@ const gameController = (() => {
     }
 
     return {
-        init
+        init,
+        player1,
+        player2
     };
 })();
 
 
 // Controls visibility of DOM elements
 const displayController = (() => {   
-    const init = () => {
+    const init = (e) => {
+        e.preventDefault();
         DOM.setupWindow.style.display = 'none';
         DOM.boardHTML.style.display = 'grid';
-        gameController.init(); 
+        gameController.init();  
+        DOM.container.appendChild(playerDisplay());    
+    }
+
+    const playerDisplay = () => {
+        const players = document.createElement('div');
+        players.classList.add('players');
+
+        const player1 = document.getElementById('player-1').value;
+
+        const player1Title = document.createElement('h3');
+        player1Title.setAttribute('id', 'left-title');
+        player1Title.classList.add('left-title');
+        player1Title.innerHTML = 'Player 1:'
+
+        const player1Name = document.createElement('h2');
+        player1Name.setAttribute('id', 'left-name');
+        player1Name.classList.add('left-name');
+        player1Name.innerHTML = `${player1}`;
+
+        const player2 = document.getElementById('player-2').value;
+
+        const player2Title = document.createElement('h3');
+        player2Title.setAttribute('id', 'right-title');
+        player2Title.classList.add('right-title');
+        player2Title.innerHTML = 'Player 2:'
+
+        const player2Name = document.createElement('h2');
+        player2Name.setAttribute('id', 'left-name');
+        player2Name.classList.add('left-name');
+        player2Name.innerHTML = `${player2}`;
+
+        players.appendChild(player1Title);
+        players.appendChild(player1Name);
+        players.appendChild(player2Title);
+        players.appendChild(player2Name);
+
+        return players;
     }
 
     DOM.playBtn.addEventListener('click', init); 
