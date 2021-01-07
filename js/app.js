@@ -219,7 +219,11 @@ const displayController = (() => {
         const player1Name = document.createElement('h2');
         player1Name.setAttribute('id', 'left-name');
         player1Name.classList.add('left-name');
-        player1Name.innerHTML = `${player1}`;
+        if (player1 !== '') {
+            player1Name.innerHTML = `${player1}`;
+        } else {
+            player1Name.innerHTML = 'X';
+        }
         
         const player2 = document.getElementById('player-2').value;
 
@@ -231,7 +235,12 @@ const displayController = (() => {
         const player2Name = document.createElement('h2');
         player2Name.setAttribute('id', 'left-name');
         player2Name.classList.add('left-name');
-        player2Name.innerHTML = `${player2}`;
+        if (player2 !== '') {
+            player2Name.innerHTML = `${player2}`;
+        } else {
+            player2Name.innerHTML = 'O';
+        }
+        
 
         players.appendChild(player1Title);
         players.appendChild(player1Name);
