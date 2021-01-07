@@ -1,8 +1,6 @@
 /*
 *   TODO:: 
-*       - Add scenes for setup, game and after game
-*       - Add Styling for Win Condition
-*       - Add input for player names
+*       - Add Styling for Scenes
 *       - (Optional) Begin implementation of Computer Opponent
 */
 
@@ -17,6 +15,12 @@ const DOM = (() => {
         playBtn: document.querySelector('.play-btn'),
 
         boardHTML: document.querySelector('#gameBoard'),
+
+        statusMsg: document.querySelector('#statusMessage'),
+
+        statusMsgElement: document.querySelector('[data-message-text]'),
+
+        restartBtn: document.querySelector('#restartButton'),
         
         getCells: function() {
             return this.boardHTML.querySelectorAll('.cell');
@@ -98,11 +102,11 @@ const gameController = (() => {
 
     const init = () => {
         gameBoard.init();
-        startGame();
+        takeTurn();
     }
 
     // Handles gameplay events
-    const startGame = () => {
+    const takeTurn = () => {
         const cellElements = document.querySelectorAll('.cell');
         cellElements.forEach((cell) => {
             cell.addEventListener('click', handleTurn)
@@ -124,7 +128,7 @@ const gameController = (() => {
             } else {
                 switchPlayer();
                 handleHover();
-                startGame();
+                takeTurn();
             }
         }
     }
@@ -151,7 +155,7 @@ const gameController = (() => {
     const endGame = (draw) => {
         DOM.boardHTML.classList.remove(activePlayer.marker);
         if (draw) {
-            console.log("Draw!");
+            displayController.winDisplay();
         } else {
             displayController.winDisplay(activePlayer.marker);
         }
@@ -159,7 +163,7 @@ const gameController = (() => {
 
     const isDraw = () => {
         return board.every(cell => {
-            return cell !== '' || cell !== '';
+            return cell !== '';
         })
     }
 
@@ -191,7 +195,7 @@ const gameController = (() => {
 
 
 // Controls visibility of DOM elements
-const displayController = (() => {   
+const displayController = (() => {     
     const init = (e) => {
         e.preventDefault();
         DOM.setupWindow.style.display = 'none';
@@ -200,6 +204,7 @@ const displayController = (() => {
         DOM.container.appendChild(playerDisplay().players);    
     }
 
+    // Function used to grab and display player names on screen
     const playerDisplay = () => {
         const players = document.createElement('div');
         players.classList.add('players');
@@ -236,13 +241,31 @@ const displayController = (() => {
         return { players, player1, player2 };
     }
 
-    const winDisplay = (name) => {
-        this.name = name;
-        if (this.name == 'x') {
-            console.log(`${playerDisplay().player1} Wins!`);
+    // Displays winning message
+    const winDisplay = (condition) => {
+        //this.condition = condition;
+        const player1 = playerDisplay().player1
+        const player2 = playerDisplay().player2
+        DOM.statusMsg.style.display = 'flex';
+        if (condition == 'x') {
+            if (player1 !== ''){
+                DOM.statusMsgElement.innerHTML = `${player1} Wins!`;  
+            } else {
+                DOM.statusMsgElement.innerHTML = `X Wins!`
+            } 
+        } else if (condition == 'o') {
+            if (player2 !== ''){
+                DOM.statusMsgElement.innerHTML = `${player2} Wins!`;  
+            } else {
+                DOM.statusMsgElement.innerHTML = `O Wins!`
+            } 
         } else {
-            console.log(`${playerDisplay().player2} Wins!`);
+            DOM.statusMsgElement.innerHTML = 'Draw!'
         }
+        DOM.restartBtn.addEventListener('click', () => {
+            location.reload();
+            return false;
+        });
     }
 
     DOM.playBtn.addEventListener('click', init); 
